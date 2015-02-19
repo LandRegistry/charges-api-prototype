@@ -1,0 +1,19 @@
+{
+  "name": "charges-api",
+  "version": "1.0.0",
+  "description": "A node.js mockup of the Charges Api for lenders/conveyancers that want to automate using the Charges process",
+  "main": "start.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/LandRegistry/charges-api.git"
+  },
+  "author": "Charges team",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/LandRegistry/charges-api/issues"
+  },
+  "homepage": "https://github.com/LandRegistry/charges-api"
+}
