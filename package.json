@@ -15,5 +15,9 @@
   "bugs": {
     "url": "https://github.com/LandRegistry/charges-api/issues"
   },
-  "homepage": "https://github.com/LandRegistry/charges-api"
+  "homepage": "https://github.com/LandRegistry/charges-api",
+  "dependencies": {
+    "express": "3.4.7",
+    "hogan-express": "^0.5.2"
+  }
 }
