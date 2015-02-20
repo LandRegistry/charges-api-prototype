@@ -2,9 +2,12 @@
   "name": "charges-api",
   "version": "1.0.0",
   "description": "A node.js mockup of the Charges Api for lenders/conveyancers that want to automate using the Charges process",
-  "main": "start.js",
+  "main": "node server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "engines": {
+    "node": "0.12.x"
   },
   "repository": {
     "type": "git",
