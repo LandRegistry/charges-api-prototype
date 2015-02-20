@@ -1,0 +1,111 @@
+<script type="text/javascript">
+  function postCharge() {
+    var responseWell = $('#response');
+    var sentJsonWell = $('#sent');
+    var id = $('#id').val();
+    $(sentJsonWell).html("<p>GET /charge/"+ id +"</p>");
+    $.ajax('/charge/'+id, {
+      type: 'GET',
+      processData: false,
+      contentType: 'application/json',
+      success: function(data, textStatus, jqXHR) {
+        $(responseWell).html(
+          "<p>Status: " + jqXHR.status + " - " + jqXHR.statusText + "</p>"
+          + "<pre>"
+          + JSON.stringify(JSON.parse(data), undefined, 4)
+          + "</pre>"
+        );
+      }
+    });
+    
+  }
+</script>
+<h1>GET /charge/:id</h1>
+<p>
+  The /charge/:id endpoint provides the ability to check the current status of
+  a Charge. This is useful for an automated system to check on whether all
+  borrowers have signed a Charge before presenting it to an Agent for dating.
+</p>
+<p>
+  This endpoint is currently faked, and so will only return fake results. It is
+  designed to show an example flow through the system. It will not store any
+  information inputted.
+</p>
+
+<h2>URL parameters</h2>
+
+<table class="table table-striped">
+  <thead>
+    <td>name</td><td>description</td><td>format</td><td>example</td>
+  </thead>
+  <tr>
+    <td>id</td>
+    <td>The ID of the Charge</td>
+    <td>a standard uuid v4</td>
+    <td>xxxxxxxx-xxxx-4xxx-xxxx-xxxxxxxxxxxx</td>
+  </tr>
+</table>
+
+<h2>Response</h2>
+
+<table class="table table-striped">
+  <thead>
+    <td>name</td><td>description</td><td>format</td><td>example</td>
+  </thead>
+  <tr>
+    <td>id</td>
+    <td>The ID of the Charge</td>
+    <td>a standard uuid v4</td>
+    <td>xxxxxxxx-xxxx-4xxx-xxxx-xxxxxxxxxxxx</td>
+  </tr>
+  <tr>
+    <td>borrowers</td>
+    <td>A list of borrowers and whether they have signed</td>
+    <td>array</td>
+    <td></td>
+  </tr>
+  <tr>
+    <td></td>
+    <td colspan="3">
+      <table class="table table-striped">
+        <thead>
+          <td>name</td><td>description</td><td>format</td><td>example</td>
+        </thead>
+        <tr>
+          <td>name</td>
+          <td>Borrowers name</td>
+          <td>stding</td>
+          <td>Jane Smith</td>
+        </tr>
+        <tr>
+          <td>signed</td>
+          <td>Whether the borrower has signed the charge</td>
+          <td>boolean</td>
+          <td>true</td>
+        </tr>
+      </table>
+    </td>
+  </tr>
+</table>
+
+<h2>Try it</h2>
+<h3>Payload</h3>
+<form class="well form-inline">
+  <h4>
+    /charge/
+    <input type="text" class="form-control input-medium" name="id" id="id" value="12345678-9abc-4def-0123-456789abcdef">
+  </h4>
+
+  <a class="btn btn-default" href="javascript:postCharge()">Submit</a>
+</form>
+
+<h3>Sent</h3>
+
+<div class="well" id="sent">
+</div>
+
+<h3>Response</h3>
+
+<div class="well" id="response">
+</div>
+

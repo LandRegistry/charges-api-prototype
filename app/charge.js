@@ -15,5 +15,17 @@ module.exports = {
       'borrowers': borrowers
     }));
     res.end();
+  },
+  chargeSignatures : function (req, res) {
+    var json = {
+      'id' : req.params.id || uuid.v4(),
+      'borrowers' : [
+        { 'name' : 'Jane Smith', 'signed': true },
+        { 'name' : 'John Smith', 'signed': false },
+      ]
+    }
+    res.statusCode = 200;
+    res.write(JSON.stringify(json));
+    res.end();
   }
 }

@@ -3,7 +3,9 @@ var charge = require('./app/charge.js');
 
 module.exports = {
   bind : function (app) {
-    app.post('/charge', charge.createCharge); 
+    app.post('/charge', charge.createCharge);
+    app.get('/charge/:id', charge.chargeSignatures);
+
     app.get('/', explorer.index);
     app.get(/^\/([^.]+)$/, explorer.renderPage);
   },
