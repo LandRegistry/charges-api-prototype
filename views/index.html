@@ -27,4 +27,30 @@
   on the mortgage product to use, the borrowers to list on the Charge, and the
   property to apply the Charge against.
 </p>
+<h3>
+  2. Borrowers digitally sign the Charge
+  <small><a href="http://charges-prototype-ci.herokuapp.com/v1-1/step2/step-1-citizen-signs-deed">
+    Sign your mortgage deed service
+  </a></small>
+</h3>
+<p>
+  The Borrowers each use the new
+  <a href="http://charges-prototype-ci.herokuapp.com/v1-1/step2/step-1-citizen-signs-deed">
+    Sign your mortgage deed service
+  </a>
+  to digitally sign the Charge. This digital signature will be attached to the
+  charge and held securely on the Land Register once the Charge has been
+  completed.
+</p>
+<h3>
+  2. Lender checks that all borrowers have signed
+  <small><a href="/explorer/charge/:id/get">GET /charge/:id</a></small>
+</h3>
+<p>
+  Lenders can use the /charge/:id endpoint to check the current status of a
+  Charge. Once all borrowers listed have digitally signed the Charge then the
+  Lender can date the charge and submit it to the Land Registry for recording on
+  the Land Register.
+</p>
+
 <hr/>
