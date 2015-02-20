@@ -155,6 +155,48 @@
   </tr>
 </table>
 
+<h2>Response</h2>
+
+<table class="table table-striped">
+  <thead>
+    <td>name</td><td>description</td><td>format</td><td>example</td>
+  </thead>
+  <tr>
+    <td>id</td>
+    <td>The ID of the Charge</td>
+    <td>a standard uuid v4</td>
+    <td>xxxxxxxx-xxxx-4xxx-xxxx-xxxxxxxxxxxx</td>
+  </tr>
+  <tr>
+    <td>borrowers</td>
+    <td>A list of borrowers and whether they have signed</td>
+    <td>array</td>
+    <td></td>
+  </tr>
+  <tr>
+    <td></td>
+    <td colspan="3">
+      <table class="table table-striped">
+        <thead>
+          <td>name</td><td>description</td><td>format</td><td>example</td>
+        </thead>
+        <tr>
+          <td>name</td>
+          <td>Borrowers name</td>
+          <td>stding</td>
+          <td>Jane Smith</td>
+        </tr>
+        <tr>
+          <td>signed</td>
+          <td>Whether the borrower has signed the charge</td>
+          <td>boolean</td>
+          <td>true</td>
+        </tr>
+      </table>
+    </td>
+  </tr>
+</table>
+
 <h2>Try it</h2>
 <h3>Payload</h3>
 <form class="well">
@@ -233,7 +275,7 @@
   <a class="btn btn-default" href="javascript:postCharge()">Submit</a>
 </form>
 
-<h3>Sent JSON</h3>
+<h3>Sent</h3>
 
 <div class="well" id="sent">
 </div>
