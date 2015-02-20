@@ -1,1 +1,30 @@
-<h1>Hello {{name}}</h1>
+<h1>Charge API</h1>
+
+<p>
+  The Charge Service will be used by Lenders and Conveyancers to create Charges
+  to be applied to the Land Register. There are two services that will be
+  provided to Lenders and Conveyancers through which they can submit Charges.
+</p>
+<label>These are:</label>
+<ul>
+  <li>
+    <a href="http://charges-prototype-ci.herokuapp.com">An online transaction</a>
+  </li>
+  <li>
+    <a href="http://charges-api-prototype-ci.herokuapp.com">This API</a>
+  </li>
+</ul>
+
+<hr/>
+
+<h2>Expected process flow</h2>
+<h3>
+  1. Lender creates a Charge
+  <small><a href="/charge/post">POST /charge</a></small>
+</h3>
+<p>
+  The lender uses the Charge API to create a Charge. They provide information
+  on the mortgage product to use, the borrowers to list on the Charge, and the
+  property to apply the Charge against.
+</p>
+<hr/>

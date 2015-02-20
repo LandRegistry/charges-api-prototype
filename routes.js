@@ -1,8 +1,11 @@
 var explorer = require('./app/explorer.js');
+var charge = require('./app/charge.js');
 
 module.exports = {
   bind : function (app) {
+    app.post('/charge', charge.createCharge); 
     app.get('/', explorer.index);
+    app.get(/^\/([^.]+)$/, explorer.renderPage);
   },
   log : function (app) {
     var routes = app.routes;

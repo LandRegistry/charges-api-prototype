@@ -1,0 +1,244 @@
+<script type="text/javascript">
+  function postCharge() {
+    var responseWell = $('#response');
+    var sentJsonWell = $('#sent');
+    var json = {
+      'uprn': $('#uprn').val(),
+      'type': $('input[name=type]:checked').val(),
+      'mdref': $('#mdref').val(),
+      'borrowers': [
+        {
+          'first_name': $('#first_name').val(),
+          'last_name': $('#last_name').val(),
+          'date_of_birth': $('#date_of_birth').val(),
+          'phone': $('#phone').val(),
+          'email': $('#email').val(),
+          'address_l1': $('#address_l1').val(),
+          'address_l2': $('#address_l2').val(),
+          'address_l3': $('#address_l3').val(),
+          'address_town': $('#address_town').val(),
+          'address_postcode': $('#address_postcode').val()
+        }
+      ]
+    };
+    $(sentJsonWell).html("<p>POST /charge</p><pre>" + JSON.stringify(json, undefined, 4) + "</pre>");
+    $.ajax('/charge', {
+      type: 'POST',
+      processData: false,
+      contentType: 'application/json',
+      data: JSON.stringify(json),
+      success: function(data, textStatus, jqXHR) {
+        $(responseWell).html(
+          "<p>Status: " + jqXHR.status + " - " + jqXHR.statusText + "</p>"
+          + "<pre>"
+          + JSON.stringify(JSON.parse(data), undefined, 4)
+          + "</pre>"
+        );
+      }
+    });
+    
+  }
+</script>
+<h1>POST /charge</h1>
+<p>
+  The /charge endpoint provides the ability to create charges to be added to the
+  Register.
+</p>
+<p>
+  Borrowers will then need to sign the charge before it can be dated.
+</p>
+<p>
+  This endpoint is currently faked, and so will only return fake results. It is
+  designed to show an example flow through the system. It will not store any
+  information inputted.
+</p>
+
+<h2>Payload</h2>
+
+<table class="table table-striped">
+  <thead>
+    <td>name</td><td>description</td><td>format</td><td>example</td>
+  </thead>
+  <tr>
+    <td>uprn</td>
+    <td>Unique Property Reference number</td>
+    <td>up to 12 digit number</td>
+    <td>26742640</td>
+  </tr>
+  <tr>
+    <td>type</td>
+    <td>The type of Charge to create</td>
+    <td>one of [discharge|charge]</td>
+    <td>charge</td>
+  </tr>
+  <tr>
+    <td>mdref</td>
+    <td>The Mortgage Deed Reference number</td>
+    <td>MD code</td>
+    <td>MD1234F</td>
+  </tr>
+  <tr>
+    <td>borrowers</td>
+    <td>A list of details of borrowers for the Charge to be registered against</td>
+    <td>array</td>
+    <td></td>
+  </tr>
+  <tr>
+    <td></td>
+    <td colspan="3">
+      <table class="table table-striped">
+        <thead>
+          <td>name</td><td>description</td><td>format</td><td>example</td>
+        </thead>
+        <tr>
+          <td>first_name</td>
+          <td>Borrowers first name</td>
+          <td>stding</td>
+          <td>Jane</td>
+        </tr>
+        <tr>
+          <td>last_name</td>
+          <td>Borrowers last name</td>
+          <td>stding</td>
+          <td>Smith</td>
+        </tr>
+        <tr>
+          <td>date_of_birth</td>
+          <td>Borrowers date of birth</td>
+          <td>DD/MM/YYYY</td>
+          <td>01/10/1990</td>
+        </tr>
+        <tr>
+          <td>address_l1</td>
+          <td>Borrowers Address</td>
+          <td>stding</td>
+          <td>1 Fake Stdeet</td>
+        </tr>
+        <tr>
+          <td>address_l2</td>
+          <td>Borrowers Address</td>
+          <td>stding</td>
+          <td>Fakeshall</td>
+        </tr>
+        <tr>
+          <td>address_l3</td>
+          <td>Borrowers Address</td>
+          <td>stding</td>
+          <td>Fakesbury</td>
+        </tr>
+        <tr>
+          <td>address_town</td>
+          <td>Borrowers Address</td>
+          <td>stding</td>
+          <td>Fakerton</td>
+        </tr>
+        <tr>
+          <td>address_postcode</td>
+          <td>Borrowers Address</td>
+          <td>postcode</td>
+          <td>AB12 3CD</td>
+        </tr>
+        <tr>
+          <td>phone</td>
+          <td>Borrowers phone number</td>
+          <td>telephone</td>
+          <td>01234 567 890</td>
+        </tr>
+        <tr>
+          <td>email</td>
+          <td>Borrowers email address</td>
+          <td>email</td>
+          <td>jane.smith@fakemail.co.uk</td>
+        </tr>
+      </table>
+    </td>
+  </tr>
+</table>
+
+<h2>Try it</h2>
+<h3>Payload</h3>
+<form class="well">
+  <div class="form-group">
+    <label for="uprn">uprn</label>
+    <input type="text" class="form-control" name="uprn" id="uprn" value="123456">
+  </div>
+  <div class="form-group">
+    <label for="type">type</label>
+    <div class="radio">
+      <label for="type-charge">
+        <input type="radio" name="type" id="type-charge" value="charge" checked>
+        charge
+      </label>
+      <label for="type-discharge">
+        <input type="radio" name="type" id="type-discharge" value="discharge">
+        discharge
+      </label>
+    </div>
+  </div>
+  <div class="form-group">
+    <label for="mdref">mdref</label>
+    <input type="text" class="form-control" name="mdref" id="mdref" value="MD1234F">
+  </div>
+
+  <div class="form-group">
+    <label for="borrower">borrowers</label>
+    <div class="row" id="borrower">
+      <div class="col-md-6">
+        <div class="form-group">
+          <label for="first_name">first_name</label>
+          <input type="text" class="form-control" name="first_name" id="first_name" value="Jane">
+        </div>
+        <div class="form-group">
+          <label for="last_name">last_name</label>
+          <input type="text" class="form-control" name="last_name" id="last_name" value="Smith">
+        </div>
+        <div class="form-group">
+          <label for="date_of_birth">date_of_birth</label>
+          <input type="text" class="form-control" name="date_of_birth" id="date_of_birth" value="01/10/1990">
+        </div>
+        <div class="form-group">
+          <label for="phone">phone</label>
+          <input type="text" class="form-control" name="phone" id="phone" value="01234 567 890">
+        </div>
+        <div class="form-group">
+          <label for="email">email</label>
+          <input type="text" class="form-control" name="email" id="email" value="jane.smith@fakemail.co.uk">
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="form-group">
+          <label for="address_l1">address_l1</label>
+          <input type="text" class="form-control" name="address_l1" id="address_l1" value="1 Fake Street">
+        </div>
+        <div class="form-group">
+          <label for="address_l2">address_l2</label>
+          <input type="text" class="form-control" name="address_l2" id="address_l2" value="">
+        </div>
+        <div class="form-group">
+          <label for="address_l3">address_l3</label>
+          <input type="text" class="form-control" name="address_l3" id="address_l3" value="">
+        </div>
+        <div class="form-group">
+          <label for="address_town">address_town</label>
+          <input type="text" class="form-control" name="address_town" id="address_town" value="Fakerton">
+        </div>
+        <div class="form-group">
+          <label for="address_postcode">address_postcode</label>
+          <input type="text" class="form-control" name="address_postcode" id="address_postcode" value="AB12 3CD">
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <a class="btn btn-default" href="javascript:postCharge()">Submit</a>
+</form>
+
+<h3>Sent JSON</h3>
+
+<div class="well" id="sent">
+</div>
+
+<h3>Response</h3>
+
+<div class="well" id="response">
+</div>
