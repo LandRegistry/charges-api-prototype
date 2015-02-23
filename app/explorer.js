@@ -16,6 +16,9 @@ var explorer = module.exports = {
     res.render("index");
   },
   enactDemo : function (req, res) {
+    res.locals = {
+      'title': 'Charge Dashboard'
+    };
     res.render("enact/index", {layout: 'layouts/enact'});
   }
 }
