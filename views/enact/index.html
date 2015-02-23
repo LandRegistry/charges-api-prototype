@@ -1,0 +1,88 @@
+<script type="text/javascript">
+  Date.prototype.yyyymmdd = function() {
+    var yyyy = this.getFullYear().toString();
+    var mm = (this.getMonth()+1).toString(); // getMonth() is zero-based
+    var dd  = this.getDate().toString();
+    return yyyy + '-' + (mm[1]?mm:"0"+mm[0]) + '-'  + (dd[1]?dd:"0"+dd[0]); // padding
+  };
+
+  function dateCharge(id) {
+    d = new Date();
+    $.ajax('/charge/'+id+'/'+d.yyyymmdd(), {
+      type: 'POST',
+      success: function () {
+        var idHTML = $('#charges-waiting tr#'+id+' td.id').prop('outerHTML');
+        var dateHTML = $('#charges-waiting tr#'+id+' td.date').prop('outerHTML');
+        var borrowersHTML = $('#charges-waiting tr#'+id+' td.borrowers').prop('outerHTML');
+        var html = "<tr id="+id+">"
+          + idHTML
+          + '<td class="date">' + d.yyyymmdd() + '</td>'
+          + borrowersHTML
+        +"</tr>";
+        $('#charges-submitted tbody').first().prepend(html);
+        $('#charges-waiting tr#'+id).remove();
+      }
+    });
+  }
+</script>
+
+<h1>Charge Dashboard</h1>
+
+<h2>Charges waiting dating</h2>
+<table class="table table-striped" id="charges-waiting">
+  <thead>
+    <td>ID</td><td>Date created</td><td>Borrowers</td><td>Actions</td>
+  </thead>
+  <tbody>
+    <tr id="1986ecb0">
+      <td class="id">1986ecb0</td>
+      <td class="date">2015-02-21</td>
+      <td class="borrowers">
+        <table class="table table-striped">
+          <thead>
+            <td>Name</td><td>Signed</td>
+          </thead>
+          <tr class="success"><td>Jenny Appleseed</td><td>Yes</td></tr>
+          <tr class="success"><td>Heather Appleseed</td><td>Yes</td></tr>
+        </table>
+      </td>
+      <td><button class="btn btn-default" onClick="dateCharge('1986ecb0')">Date this Charge</button></td>
+    </tr>
+    <tr>
+      <td class="id">78699f67</td>
+      <td class="date">2015-02-20</td>
+      <td class="borrowers">
+        <table class="table table-striped">
+          <thead>
+            <td>Name</td><td>Signed</td>
+          </thead>
+          <tr class="success"><td>Jane Smith</td><td>Yes</td></tr>
+          <tr class="danger"><td>John Smith</td><td>No</td></tr>
+        </table>
+      </td>
+      <td><button class="btn btn-default" disabled="disabled">Date this Charge</button></td>
+    </tr>
+  </tbody>
+</table>
+
+<h2>Charges submitted</h2>
+<table class="table table-striped" id="charges-submitted">
+  <thead>
+    <td>ID</td><td>Date submitted</td><td>Borrowers</td>
+  </thead>
+  <tbody>
+    <tr id="0198441a">
+      <td class="id">0198441a</td>
+      <td class="date">2015-02-10</td>
+      <td class="borrowers">
+        <table class="table table-striped">
+          <thead>
+            <td>Name</td><td>Signed</td>
+          </thead>
+          <tr class="success"><td>Joe Faux</td><td>Yes</td></tr>
+          <tr class="success"><td>Chris Faux</td><td>Yes</td></tr>
+        </table>
+      </td>
+    </tr>
+  </tbody>
+</table>
