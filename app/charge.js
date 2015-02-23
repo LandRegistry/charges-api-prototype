@@ -1,5 +1,6 @@
 var uuid = require('node-uuid');
 var httpStatus = require('http-status-codes');
+var moment = require('moment');
 
 module.exports = {
   createCharge : function (req, res) {
@@ -23,6 +24,16 @@ module.exports = {
         { 'name' : 'Jane Smith', 'signed': true },
         { 'name' : 'John Smith', 'signed': false },
       ]
+    }
+    res.statusCode = 200;
+    res.write(JSON.stringify(json));
+    res.end();
+  },
+  dateCharge: function (req, res) {
+    var date = moment(req.params.date) || moment();
+    var json = {
+      'id' : req.params.id || uuid.v4(),
+      'date' : date.format('YYYY-MM-DD')
     }
     res.statusCode = 200;
     res.write(JSON.stringify(json));

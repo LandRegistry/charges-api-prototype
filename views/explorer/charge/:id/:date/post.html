@@ -1,0 +1,99 @@
+<script type="text/javascript">
+  function postCharge() {
+    var responseWell = $('#response');
+    var sentJsonWell = $('#sent');
+    var id = $('#id').val();
+    var date = $('#date').val();
+    $(sentJsonWell).html("<p>POST /charge/"+ id +"/"+ date +"</p>");
+    $.ajax('/charge/'+ id +'/'+ date, {
+      type: 'POST',
+      processData: false,
+      success: function(data, textStatus, jqXHR) {
+        $(responseWell).html(
+          "<p>Status: " + jqXHR.status + " - " + jqXHR.statusText + "</p>"
+          + "<pre>"
+          + JSON.stringify(JSON.parse(data), undefined, 4)
+          + "</pre>"
+        );
+      }
+    });
+  }
+</script>
+<h1>POST /charge/:id/:date</h1>
+<p>
+  The /charge/:id/:date endpoint provides the ability to date a Charge that has
+  been fully signed by all listed borrowers. The Charge would then be added to
+  the register.
+</p>
+<p>
+  Borrowers will then need to sign the charge before it can be dated.
+</p>
+<p>
+  This endpoint is currently faked, and so will only return fake results. It is
+  designed to show an example flow through the system. It will not store any
+  information inputted.
+</p>
+
+<h2>URL parameters</h2>
+
+<table class="table table-striped">
+  <thead>
+    <td>name</td><td>description</td><td>format</td><td>example</td>
+  </thead>
+  <tr>
+    <td>id</td>
+    <td>The ID of the Charge to date</td>
+    <td>a standard uuid v4</td>
+    <td>xxxxxxxx-xxxx-4xxx-xxxx-xxxxxxxxxxxx</td>
+  </tr>
+  <tr>
+    <td>date</td>
+    <td>The date for the Charge to take effect</td>
+    <td>standard ISO 6801 date yyyy-mm-dd</td>
+    <td>2015-01-01</td>
+  </tr>
+</table>
+
+<h2>Response</h2>
+
+<table class="table table-striped">
+  <thead>
+    <td>name</td><td>description</td><td>format</td><td>example</td>
+  </thead>
+  <tr>
+    <td>id</td>
+    <td>The ID of the Charge</td>
+    <td>a standard uuid v4</td>
+    <td>xxxxxxxx-xxxx-4xxx-xxxx-xxxxxxxxxxxx</td>
+  </tr>
+  <tr>
+    <td>date</td>
+    <td>The date for the Charge to take effect</td>
+    <td>standard ISO 6801 date yyyy-mm-dd</td>
+    <td>2015-01-01</td>
+  </tr>
+</table>
+
+<h2>Try it</h2>
+<h3>Payload</h3>
+<form class="well form-inline">
+  <h4>
+    /charge/
+    <input type="text" class="form-control input-medium" name="id" id="id" value="12345678-9abc-4def-0123-456789abcdef">
+    /
+    <input type="text" class="form-control input-medium" name="date" id="date" value="2015-01-01">
+  </h4>
+
+  <a class="btn btn-default" href="javascript:postCharge()">Submit</a>
+</form>
+
+<h3>Sent</h3>
+
+<div class="well" id="sent">
+</div>
+
+<h3>Response</h3>
+
+<div class="well" id="response">
+</div>
+
