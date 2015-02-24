@@ -7,6 +7,7 @@ module.exports = {
     app.get('/charge/:id', charge.chargeSignatures);
     app.post('/charge/:id/:date', charge.dateCharge);
 
+    app.get('/enact', explorer.enactDemo);
     app.get('/', explorer.index);
     app.get(/^\/([^.]+)$/, explorer.renderPage);
   },
