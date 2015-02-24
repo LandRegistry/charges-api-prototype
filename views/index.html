@@ -1,9 +1,9 @@
 <h1>Charge API</h1>
 
 <p>
-  The Charge Service will be used by Lenders and Conveyancers to create Charges
+  The Charge Service will be used by Lender/Conveyancers and Conveyancers to create Charges
   to be applied to the Land Register. There are two services that will be
-  provided to Lenders and Conveyancers through which they can submit Charges.
+  provided to Lender/Conveyancers and Conveyancers through which they can submit Charges.
 </p>
 <label>These are:</label>
 <ul>
@@ -19,7 +19,7 @@
 
 <h2>Expected process flow</h2>
 <h3>
-  1. Lender creates a Charge
+  1. Lender/Conveyancer creates a Charge
   <small><a href="/explorer/charge/post">POST /charge</a></small>
 </h3>
 <p>
@@ -43,21 +43,21 @@
   completed.
 </p>
 <h3>
-  3. Lender checks that all borrowers have signed
+  3. Lender/Conveyancer checks that all borrowers have signed
   <small><a href="/explorer/charge/:id/get">GET /charge/:id</a></small>
 </h3>
 <p>
-  Lenders can use the /charge/:id endpoint to check the current status of a
+  Lender/Conveyancers can use the /charge/:id endpoint to check the current status of a
   Charge. Once all borrowers listed have digitally signed the Charge then the
-  Lender can date the charge and submit it to the Land Registry for recording on
+  Lender/Conveyancer can date the charge and submit it to the Land Registry for recording on
   the Land Register.
 </p>
 <h3>
-  4. Lender dates the charge
+  4. Lender/Conveyancer dates the charge
   <small><a href="/explorer/charge/:id/:date/post">POST /charge/:id/:date</a></small>
 </h3>
 <p>
-  Once all Borrowers have signed the Lenders can use the /charge/:id/:date
+  Once all Borrowers have signed the Lender/Conveyancers can use the /charge/:id/:date
   endpoint to date a Charge. The Charge would then be submitted to the Land
   Registry for adding to the Land Register.
 </p>
